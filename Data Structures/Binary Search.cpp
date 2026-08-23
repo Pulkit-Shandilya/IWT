@@ -17,11 +17,9 @@ int main(){
 }
 
 int binary_search(int arr[], int n, int key){
-    int sarr[] = sort(arr , n);
+    auto sarr = sort(arr, n);
 
-    for(int i = 0; i < n; i++){
 
-    }
 }
 
 // template <size_t N>
@@ -34,8 +32,7 @@ int binary_search(int arr[], int n, int key){
 //     return N;
 // }
 
-
-int sort(int arr[], int n){
+auto sort(int arr[], int n){
     for (int i = 1; i < n; i++)
     {
         int key = arr[i];
@@ -49,5 +46,5 @@ int sort(int arr[], int n){
         arr[j+1] = key;
     }
     
-
+    return arr;
 }
