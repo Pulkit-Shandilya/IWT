@@ -13,7 +13,6 @@ int main(){
         cin >> y;
         arr[i] = y;
     }
-    
 }
 
 int binary_search(int arr[], int n, int key){
