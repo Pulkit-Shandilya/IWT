@@ -8,8 +8,7 @@ int partition(int arr[], int low, int high) {
     for (int j = low; j < high; j++) {
         // If current element is smaller than or equal to pivot
         if (arr[j] <= pivot) {
-            i++;
-            std::swap(arr[i], arr[j]);
+            std::swap(arr[i++], arr[j]);
         }
     }
     
