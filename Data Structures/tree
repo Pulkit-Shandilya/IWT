@@ -1,0 +1,27 @@
+#include <iostream>
+
+struct tree{
+    int value;
+    tree* left;
+    tree* right;
+
+    public:
+        tree(int val) : value(val), left(nullptr), right(nullptr) {}
+
+        void create_right_node(int val){
+            if (right == nullptr){
+                right = new tree(val);
+            }
+            else{
+                right->create_right_node(val);
+            }
+        }
+        void create_left_node(int val){
+            if (left == nullptr){
+                left = new tree(val);
+            }
+            else{
+                left->create_left_node(val);
+            }
+        }
+};

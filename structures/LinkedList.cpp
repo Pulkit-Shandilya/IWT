@@ -10,8 +10,12 @@ struct node {
 
         void Insert_Start(struct node **head, int val) {
             struct node* new_node = new node(val);
+            if (*head == nullptr) {
+                *head = new_node;
+            } else {            
             new_node->next = *head; 
             *head = new_node;
+            }
         }
         void Insert_End(struct node **head, int val) {
             struct node* new_node = new node(val);
@@ -25,26 +29,38 @@ struct node {
                 current->next = new_node;
             }
         }
-        void Insert_right_of_element(struct node **head, int val, int pos) {
+        void Insert_right_of_element(struct node **head, int val, int target) {
             struct node* new_node = new node(val);
             if (*head == nullptr) {
                 *head = new_node;
             } else {
                 struct node* current = *head;
-                for (int i = 0; i < pos - 1 && current != nullptr; i++) {
+                while (current != nullptr && current->value != target) {
                     current = current->next;
                 }
                 if (current != nullptr) {
                     new_node->next = current->next;
                     current->next = new_node;
+                } else {
+                    delete new_node;
                 }
             }
         }
-        void Insert_left_of_Element(struct node **head, int val, int pos) {
-            if (pos == 0) {
+        void Insert_left_of_Element(struct node **head, int val, int target) {
+            if (*head == nullptr) {
+                Insert_Start(head, val);
+            } else if ((*head)->value == target) {
                 Insert_Start(head, val);
             } else {
-                Insert_right_of_element(head, val, pos - 1);
+                struct node* current = *head;
+                while (current->next != nullptr && current->next->value != target) {
+                    current = current->next;
+                }
+                if (current->next != nullptr) {
+                    struct node* new_node = new node(val);
+                    new_node->next = current->next;
+                    current->next = new_node;
+                }
             }
         }
         // Deleting
@@ -91,3 +107,33 @@ struct node {
             }
         }
 };
+
+int main() {
+    struct node* head = nullptr;
+    node operations(0);
+
+    operations.Insert_Start(&head, 10);
+    operations.Insert_End(&head, 20);
+    operations.Insert_End(&head, 30);
+    operations.Insert_left_of_Element(&head, 15, 20);
+    operations.Insert_right_of_element(&head, 25, 20);
+
+    std::cout << "Linked list: ";
+    struct node* current = head;
+    while (current != nullptr) {
+        std::cout << current->value;
+        if (current->next != nullptr) {
+            std::cout << " -> ";
+        }
+        current = current->next;
+    }
+    std::cout << std::endl;
+
+    while (head != nullptr) {
+        struct node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    return 0;
+}
